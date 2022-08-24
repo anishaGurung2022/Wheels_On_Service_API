@@ -18,7 +18,7 @@ if(isset($_POST['token'])){
         echo json_encode(
             [
                 'success' => true,
-                'message' => 'Logot Successful'
+                'message' => 'Logout Successful'
             ]
         );
     }else{
