@@ -21,7 +21,7 @@ if($isAdmin){
         if($image_size < 5000000){
             if($image_ext == "jpg" || $image_ext == "png" || $image_ext == "jpeg"){
                 if(move_uploaded_file($image_tmp,$image_path)){
-                    $add_products = "INSERT INTO `products`(`name`, `price`, `description`,`category_id`) VALUES ('$name','$price','$description','$categoryID')";
+                    $add_products = "INSERT INTO `products`(`name`, `price`, `description`, `image`, `category_id`) VALUES ('$name','$price','$description','$image_path','$categoryID')";
                     $result = mysqli_query($con,$add_products);
                     if($result){
                         echo json_encode(

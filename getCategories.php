@@ -15,7 +15,7 @@ include 'helper_functions/authentication_functions.php';
             [
                 'success' => true,
                 'data' => $data,
-                'message' => 'Category fetched'
+                'message' => 'Category fetched Successfully'
             ]
         );
     } else {
