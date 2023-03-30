@@ -1,7 +1,7 @@
 <?php
 
 include 'DatabaseConfig.php';
-include 'helper_functions/authentication_functions2.php';
+include 'helper_functions/serviceCenter_authentication_functions.php';
 
 global $con;
 

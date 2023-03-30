@@ -1,7 +1,7 @@
 <?php
 
 include 'DatabaseConfig.php';
-include 'helper_functions/authentication_functions2.php';
+include 'helper_functions/serviceCenter_authentication_functions.php';
 
 global $con;
 if(isset($_POST['name']) && isset($_POST['phone']) && isset( $_POST['address'])&& isset( $_POST['city_id']) && isset( $_POST['email']) && isset($_POST['userName']) && isset($_POST['password'])){

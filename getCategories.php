@@ -3,6 +3,8 @@
 include 'DatabaseConfig.php';
 include 'helper_functions/authentication_functions.php';
 
+global $con;
+
 //get categories from the database
  $categories = "SELECT * FROM `categories` ";
     $result = mysqli_query($con, $categories);

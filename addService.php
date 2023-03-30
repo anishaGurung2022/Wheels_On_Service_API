@@ -1,78 +1,61 @@
 <?php
 include 'DatabaseConfig.php';
-include 'helper_functions/authentication_functions.php';
+include 'helper_functions/serviceCenter_authentication_functions.php';
 
-$isAdmin = checkIfAdmin($_POST['token'] ?? null);
-if($isAdmin){
-    if(isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['category_id']) && isset($_FILES['image'])){
+//$isAdmin = checkIfAdmin($_POST['token'] ?? null);
+//if($isAdmin){
+   if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['category_id']) && isset($_POST['serviceCenter_id']) && isset($_FILES["image"])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
-        $price = $_POST['price'];
+        $price= $_POST['price'];
         $category_id = $_POST['category_id'];
-
-        //get image
+        $serviceCenter_id = $_POST['serviceCenter_id'];
+        
+         //getimage
         $image = $_FILES['image']['name'];
         $image_tmp = $_FILES['image']['tmp_name'];
         $image_size = $_FILES['image']['size'];
         $image_ext = pathinfo($image, PATHINFO_EXTENSION);
         $image_path = "images/".$image;
 
-        if($image_size < 5000000){
-            if($image_ext == "jpg" || $image_ext == "png" || $image_ext == "jpeg"){
-                if(move_uploaded_file($image_tmp,$image_path)){
-                    $add_service = " INSERT INTO `services`(`name`, `description`, `price`, `category_id`, `image`) VALUES ('$name','$description','$price','$category_id','$image_path')";
-                    $result = mysqli_query($con,$add_service);
-                    if($result){
-                        echo json_encode(
-                            [
-                                'success' => true,
-                                'message' => "Service Added Successful"
-                            ]
-                        );
-                    }else{
-                        echo json_encode(
-                            [
-                                'success' => false,
-                                'message' => "Error Adding Service"
-                            ]
-                        );
-                    }
-                }
-                else{
-                    echo json_encode(
-                        [
-                            'success' => false,
-                            'message' => "Error Loading Image"
-                        ]
-                    );
-                }
-            }else{
-                echo json_encode(
-                    [
-                        'success' => false,
-                        'message' => 'Image must be jpg, png or jpeg.'
-                    ]
-                );
-            }
-        }else{
-            echo json_encode(
-                [
-                    'success' => false,
-                    'message' => 'Image size must be less that 5MB'
-                ]
-            );
-        }
-        
-
-    }else{
+      //upload image
+      if ($image_size < 5000000) {
+          if ($image_ext == "jpg" || $image_ext == "png" || $image_ext == "jpeg") {
+              if (move_uploaded_file($image_tmp, $image_path)) {
+                  //inserting data into database
+                  $sql = "INSERT INTO `services`(`name`, `description`, `price`, `category_id`, `serviceCenter_id`, `image`) VALUES ('$name','$description','$price','$category_id','$serviceCenter_id','$image_path')";
+                  //$sql = "INSERT INTO `services`(`name`, `description`, `price`, `category_id`, `image`) VALUES ('$name','$description','$price','$category_id','$image_path')";
+                  $query = mysqli_query($con, $sql);
+                  if ($query) {
+                    $data=['success'=>true, 
+                        'message'=>'Service added successfully'];
+                    echo json_encode($data);
+                    //  getProducts("Product added successfully.");
+                  } else {
+                      $data=['success'=>false, 'message'=>'Something went wrong.'];
+                      echo json_encode($data);
+                  }
+              } else {
+                  $data=['success'=>false, 'message'=>'Something went wrong.'];
+                  echo json_encode($data);
+              }
+          } else {
+              $data=['success'=>false, 'message'=>'Image must be jpg, png or jpeg.'];
+              echo json_encode($data);
+          }
+      } else {
+          $data=['success'=>false, 'message'=>'Image size must be less than 5MB.'];
+          echo json_encode($data);
+      }
+    } else {
         echo json_encode(
             [
                 'success' => false,
-                'message' => "Please fill fields properly"
+                'message' => 'Please fill all the fields.'
             ]
         );
     }
-}else{
+/*}else{
     echo json_encode(
         [
             'success' => false,
@@ -80,6 +63,7 @@ if($isAdmin){
         ]
     );
 }
+*/
 
 
 ?>

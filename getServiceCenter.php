@@ -1,12 +1,13 @@
 <?php
 
-global $con;
 include 'DatabaseConfig.php';
 include 'helper_functions/authentication_functions.php';
 
-//get categories from the database
- $cities = "SELECT * FROM `cities`";
-    $result = mysqli_query($con, $cities);
+global $con;
+
+//get service centers from the database
+ $serviceCenter = "SELECT * FROM `servicecenters`";
+    $result = mysqli_query($con, $serviceCenter);
     if ($result) {
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -16,14 +17,14 @@ include 'helper_functions/authentication_functions.php';
             [
                 'success' => true,
                 'data' => $data,
-                'message' => 'Cities fetched Successfully'
+                'message' => 'Service center fetched Successfully'
             ]
         );
     } else {
         echo json_encode(
             [
                 'success' => false,
-                'message' => 'Error fetching Cities'
+                'message' => 'Error'
             ]
         );
     }
