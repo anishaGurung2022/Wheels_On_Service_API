@@ -7,11 +7,11 @@ if(isset($_POST['token'])){
     if(isset($_POST['serviceCenterID'])){
         //logout user from particular device
         $serviceCenterID = $_POST['serviceCenterID'];
-        $query = "DELETE FROM `personal_access_tokens` WHERE customer_id ='$customerID'";
+        $query = "DELETE FROM `access_tokens` WHERE serviceCenter_id ='$customerID'";
     }
     else{
         //logout user from particular device
-        $query = "DELETE FROM `personal_access_tokens` WHERE token ='$access_token'";
+        $query = "DELETE FROM `access_tokens` WHERE token ='$access_token'";
     }
     $result = mysqli_query($con,$query);
     if($result){

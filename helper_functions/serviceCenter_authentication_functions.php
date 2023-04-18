@@ -63,4 +63,40 @@ function login($password, $databasePassword,$serviceCenterID)
       );
     }
 }
+
+function checkIdValidUser($token)
+{
+    global $con;
+    if ($token != null) {
+        $check_token = "SELECT * FROM `access_tokens` WHERE token = '$token'";
+        $result = mysqli_query($con, $check_token);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            $serviceCenterID = mysqli_fetch_assoc($result)['serviceCenter_id'];
+            return $serviceCenterID;
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
+function serviceCenterID($serviceCenterName)
+{
+    global $con;
+    if ($serviceCenterName != null) {
+        $check_id = "SELECT * FROM `servicecenters` WHERE name = $serviceCenterName";
+        $result = mysqli_query($con, $check_id);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            $serviceCenterID = mysqli_fetch_assoc($result)['id'];
+            return $serviceCenterID;
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
 ?>
