@@ -9,7 +9,7 @@ header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
 header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
 //get servicess from the database
- $services = "SELECT services.id, services.name, services.description, services.price, categories.name as category, servicecenters.name as serviceCenter, services.image FROM services JOIN categories ON services.category_id = categories.id JOIN servicecenters ON services.serviceCenter_id = servicecenters.id";
+ $services = "SELECT services.id, services.name, services.description, services.price, categories.name as category, servicecenters.name as serviceCenter, services.image FROM services JOIN categories ON services.category_id = categories.id JOIN servicecenters ON services.serviceCenter_id = servicecenters.id where services.active_status = 1";
     $result = mysqli_query($con, $services);
     if ($result) {
         $data = [];

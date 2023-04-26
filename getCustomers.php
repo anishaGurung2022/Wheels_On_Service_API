@@ -15,7 +15,13 @@ global $con;
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
             if ($row != null){
-                $data[] = $row;
+                if($row['image'] != null){
+                    $data[] = $row;
+                }
+                else{
+                    $row['image'] = "images\user_profile.jpg"; // set the default image file name or path here
+                    $data[] = $row;
+                }
             }else{
                 echo json_encode(
                     [

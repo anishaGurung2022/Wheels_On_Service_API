@@ -14,15 +14,12 @@ header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, 
     if ($result) {
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            if ($row != null){
+            if($row['image'] != null){
                 $data[] = $row;
-            }else{
-                echo json_encode(
-                    [
-                        'success' => true,
-                        'message' => 'Service Centers not found.'
-                    ]
-                );
+            }
+            else{
+                $row['image'] = "images\user_profile.jpg"; // set the default image file name or path here
+                $data[] = $row;
             }
         }
         echo json_encode(

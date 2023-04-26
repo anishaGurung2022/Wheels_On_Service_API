@@ -106,6 +106,20 @@ function checkIfAdmin($token)
     }
 }
 
-
-
-?>
+function serviceCenterID($serviceCenterName)
+{
+    global $con;
+    if ($serviceCenterName != null) {
+        $check_id = "SELECT * FROM `servicecenters` WHERE name = '$serviceCenterName'";
+        $result = mysqli_query($con, $check_id);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            $serviceCenterID = mysqli_fetch_assoc($result)['id'];
+            return $serviceCenterID;
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}

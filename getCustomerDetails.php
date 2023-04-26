@@ -13,7 +13,13 @@ if(isset($_POST['token'])){
     if ($result) {
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
+            if($row['image'] != null){
+                $data[] = $row;
+            }
+            else{
+                $row['image'] = "images\user_profile.jpg"; // set the default image file name or path here
+                $data[] = $row;
+            }
         }
         echo json_encode(
             [

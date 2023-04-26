@@ -13,12 +13,20 @@ if(isset($_POST['token'])){
         $result = mysqli_query($con, $details);
         if ($result) {
             $data = [];
+            //$image = mysqli_fetch_assoc($result)['image'];
             while ($row = mysqli_fetch_assoc($result)) {
-                $data[] = $row;
+                if($row['image'] != null){
+                    $data[] = $row;
+                }
+                else{
+                    $row['image'] = "images\user_profile.jpg"; // set the default image file name or path here
+                    $data[] = $row;
+                }
             }
             echo json_encode(
                 [
                     'success' => true,
+                    //'image' => $image,
                     'data' => $data,
                     'message' => 'Service Center details fetched Successfully'
                 ]

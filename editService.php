@@ -2,7 +2,7 @@
 include 'DatabaseConfig.php';
 global $conn;
 
-if (isset($_POST['id'])&& isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_FILES["image"])) {
+if (isset($_POST['id'])&& isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price'])) {
         $id=$_POST['id'];
         $name=$_POST['name'];
         $description = $_POST['description'];
