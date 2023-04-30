@@ -12,6 +12,7 @@ global $con;
  $customers = "SELECT * FROM `customers`";
     $result = mysqli_query($con, $customers);
     if ($result) {
+        $count = mysqli_num_rows($result);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
             if ($row != null){
@@ -35,6 +36,7 @@ global $con;
             [
                 'success' => true,
                 'data' => $data,
+                'count' => $count,
                 'message' => 'customers fetched Successfully'
             ]
         );
